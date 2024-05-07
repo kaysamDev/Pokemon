@@ -14,24 +14,19 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { Key } from "react";
+import Home from "../pages/Home";
 
-export default function ToolBar() {
+export default function ToolBar({selectedColor, handleColorChange, hexColors}:any) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedColor, setSelectedColor] = useState("pink");
   
-  const handleColorChange = (color: any) => {
-    setSelectedColor(color);
-    onClose();
-  };
-
   return (
     <>
       <nav className="bg-white/50 drop-shadow-md">
         <div className="flex items-center justify-between container">
           <div className="relative top-4 left-8">
             <Link to="/home" className="flex items-start gap-4">
-              <Logo width={129} />
+              <Logo width={129} selectedColor={selectedColor}/>
               <Name size={24} selectedColor={selectedColor}/>
             </Link>
           </div>
@@ -40,14 +35,15 @@ export default function ToolBar() {
             <InputGroup>
               <Input
                 placeholder="Enter pokemon name"
-                maxWidth="440px"
-                padding="12px"
+                maxWidth="480px"
+                paddingX="12px"
+                borderRadius="60px"
                 className="
-                border border-gray-500 rounded-[60px] placeholder:pl-8
-                focus:outline-none
+                border border-gray-500
+                focus:outline-none bg-transparent
                 "
               />
-              <InputLeftElement className="p-3">
+              <InputLeftElement>
                 <Search color="#d2d2d2" width="20px" height="20px" />
               </InputLeftElement>
             </InputGroup>
@@ -55,7 +51,8 @@ export default function ToolBar() {
 
           <div className="rounded-full border border-blue-500 p-1">
             <div
-              className={`w-8 max-w-full aspect-square rounded-full bg-${selectedColor}`}
+              className={`w-8 max-w-full aspect-square rounded-full`}
+              style={{backgroundColor: `${selectedColor}`}}
               onClick={onOpen}
             ></div>
           </div>
@@ -65,19 +62,25 @@ export default function ToolBar() {
               <ModalHeader>Choose Theme</ModalHeader>
               <ModalBody className="bg-gray-300">
                 <Box className="flex justify-center items-center gap-4">
-                  <Box className="rounded-full border border-blue-500 p-1">
-                    <div className="w-[70px] max-w-full aspect-square rounded-full bg-pink" onClick={() =>handleColorChange("pink")}></div>
-                  </Box>
-                  <Box>
-                    <div className="w-[70px] max-w-full aspect-square rounded-full bg-blue" onClick={() =>handleColorChange("blue")}></div>
-                  </Box>
-                  <Box>
-                    <div className="w-[70px] max-w-full aspect-square rounded-full bg-yellow" onClick={() =>handleColorChange("yellow")}></div>
-                  </Box>
+                {hexColors.map((color: any, index: Key | null | undefined) => (
+                  <Box
+                  key={index}
+                  className="rounded-full border border-blue-500 p-1"
+                  >
+                      <div
+                        className={`w-[70px] max-w-full aspect-square rounded-full`}
+                        style={{backgroundColor: `${color}`}}
+                        onClick={() => handleColorChange(color)}
+                      ></div>
+                    </Box>
+                  ))}
                 </Box>
               </ModalBody>
             </ModalContent>
           </Modal>
+        </div>
+        <div className="hidden">
+          <Home selectedColor={selectedColor}/>
         </div>
       </nav>
     </>

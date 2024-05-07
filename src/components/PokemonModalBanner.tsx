@@ -1,17 +1,16 @@
 import { Box, Button, Image } from "@chakra-ui/react";
 import { ArrowLeft } from "lucide-react";
 
-import TrialImg from "../../img/images/trialImg.svg";
-
-export default function PokemonModalBanner({onClose}:any) {
+export default function PokemonModalBanner({onClose, selectedPokemon}:any) {
+  
   return (
     <>
       <Box bg="blue" borderRadius="15px" height="200px" position="relative">
         <Button size="sm" margin="16px" onClick={onClose} h="42px">
           <ArrowLeft />
         </Button>
-        <Image
-          src={TrialImg}
+        <img
+          src={selectedPokemon.sprites.other.dream_world.front_default}
           alt="trial image"
           width={200}
           className="absolute left-0 right-0 mx-auto -bottom-10"
@@ -26,8 +25,8 @@ export default function PokemonModalBanner({onClose}:any) {
         justifyContent="center"
         mt="32px"
       >
-        <h3>charizard</h3>
-        <Box
+        <h3>{selectedPokemon.name}</h3>
+        {/* <Box
           display="flex"
           alignItems="center"
           gap="4px"
@@ -44,7 +43,7 @@ export default function PokemonModalBanner({onClose}:any) {
           <Box>
             <p>fire</p>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </>
   );
