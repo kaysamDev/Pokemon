@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  @apply text-[#000000] bg-noiseImg
+}
+
+h1{
+  @apply text-5xl font-semibold
+}
+h2{
+  @apply text-4xl font-semibold
+}
+h3{
+  @apply text-3xl font-medium
+}
+h4{
+  @apply text-2xl font-medium
+}
+
+/* List View css */
+progress::-moz-progress-bar { background: #E85382; }
+progress::-webkit-progress-value { background: #E85382; }
+progress { color: #E85382; }
+
+::-webkit-progress-bar {
+  background-color: #cbcbcb;
+}
