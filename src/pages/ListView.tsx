@@ -4,16 +4,17 @@ import PokemonCardList from "../components/PokemonCardList";
 import { useState } from "react";
 
 export default function ListView() {
-  const [selectedColor, setSelectedColor] = useState(() => {
+  const [selectedColor, setSelectedColor] = useState<string>(() => {
     return localStorage.getItem("selectedColor") || "#E85382";
   });
-
+  
   const hexColors = ["#E85382", "#39BADF", "#E1A725"];
 
-  const handleColorChange = (color: any) => {
+  const handleColorChange = (color: string) => {
     setSelectedColor(color);
     localStorage.setItem("selectedColor", color);
   };
+  
 
   return (
     <>
@@ -27,7 +28,7 @@ export default function ListView() {
 
       {/* Main list rendering */}
       <Box mt={146}>
-        <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-14">
+        <Box>
           <PokemonCardList selectedColor={selectedColor} />
         </Box>
       </Box>

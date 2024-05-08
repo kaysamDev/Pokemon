@@ -1,9 +1,13 @@
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { Search } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function SearchBar({selectedColor}:any) {
+interface ColorProps {
+  selectedColor: string
+}
+
+export default function SearchBar({selectedColor}:ColorProps) {
   const navigate = useNavigate();
   const [currentColor, setCurrentColor] = useState(() => {
     return localStorage.getItem("selectedColor") || "#E85382";
@@ -13,6 +17,9 @@ export default function SearchBar({selectedColor}:any) {
     navigate('/list-view')
   }
 
+  useEffect(()=>{
+    setCurrentColor(selectedColor)
+  },[selectedColor])
   return (
     <>
       <InputGroup className="mt-12">

@@ -1,4 +1,8 @@
-export default function Name({size, selectedColor}:any) {
+interface NameProps {
+  size: number
+  selectedColor: string
+}
+export default function Name({size, selectedColor}:NameProps) {
 
   return (
     <>

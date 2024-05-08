@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-export default function useFetch() {
-  const [data, setData] = useState<any>(null);
+export default function useFetch(initialOffset = 0, initialLimit = 50) {
+  const [data, setData] = useState<{} | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [pokemonData, setPokemonData] = useState<any[]>([]);
+  
 
   useEffect(() => {
-    const url = "https://pokeapi.co/api/v2/pokemon?offset=2&limit=2";
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${initialOffset}&limit=${initialLimit}`;
 
     const fetchData = async () => {
       try {
@@ -20,7 +21,7 @@ export default function useFetch() {
         setData(data);
         setError(null);
         fetchPokemonDetails(data); // Call fetchPokemonDetails after setting data
-      } catch (error:any) {
+      } catch (error: any) {
         setError("Failed to fetch data");
       } finally {
         setIsLoading(false);
@@ -46,5 +47,6 @@ export default function useFetch() {
     fetchData();
   }, []);
 
-  return { data, isLoading, error, pokemonData };
+  const cachedPokemonData = useMemo(()=> pokemonData, [pokemonData])
+  return { data, isLoading, error, pokemonData: cachedPokemonData};
 }

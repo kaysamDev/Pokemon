@@ -17,7 +17,13 @@ import { Search } from "lucide-react";
 import { Key } from "react";
 import Home from "../pages/Home";
 
-export default function ToolBar({selectedColor, handleColorChange, hexColors}:any) {
+interface ToolBarProps {
+  selectedColor: string
+  handleColorChange: any
+  hexColors: any
+}
+
+export default function ToolBar({selectedColor, handleColorChange, hexColors}:ToolBarProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
   return (
@@ -26,7 +32,7 @@ export default function ToolBar({selectedColor, handleColorChange, hexColors}:an
         <div className="flex items-center justify-between container">
           <div className="relative top-4 left-8">
             <Link to="/home" className="flex items-start gap-4">
-              <Logo width={129} selectedColor={selectedColor}/>
+              <Logo width={129}/>
               <Name size={24} selectedColor={selectedColor}/>
             </Link>
           </div>
@@ -62,7 +68,7 @@ export default function ToolBar({selectedColor, handleColorChange, hexColors}:an
               <ModalHeader>Choose Theme</ModalHeader>
               <ModalBody className="bg-gray-300">
                 <Box className="flex justify-center items-center gap-4">
-                {hexColors.map((color: any, index: Key | null | undefined) => (
+                {hexColors.map((color: string, index: Key | null | undefined) => (
                   <Box
                   key={index}
                   className="rounded-full border border-blue-500 p-1"

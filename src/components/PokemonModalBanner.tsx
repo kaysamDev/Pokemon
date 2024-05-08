@@ -1,7 +1,12 @@
-import { Box, Button, Image } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { ArrowLeft } from "lucide-react";
 
-export default function PokemonModalBanner({onClose, selectedPokemon}:any) {
+interface Props{
+  selectedPokemon: {}
+  onClose: any
+}
+
+export default function PokemonModalBanner({onClose, selectedPokemon}:Props) {
   
   return (
     <>

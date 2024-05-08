@@ -1,6 +1,10 @@
 import MainImg from '../../img/main_img.svg'
 
-export default function Logo({width}:any) {
+interface LogoProps {
+  width: number
+}
+
+export default function Logo({width}:LogoProps) {
   
   return (
     <div>
