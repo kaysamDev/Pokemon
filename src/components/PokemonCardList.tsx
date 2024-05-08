@@ -40,16 +40,12 @@ type pokemon = {
   stats: { stat: { name: string }; base_stat: number }[];
 };
 
-type selectedColor = {
-  selectedColor: string | void;
-};
-
 // interface Props {
 //   pokemon: pokemon;
 //   selectedColor: selectedColor;
 // }
 
-export default function PokemonCardList({ selectedColor}: selectedColor) {
+export default function PokemonCardList({ selectedColor}:any) {
   const { isLoading, error, pokemonData } = useFetch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentPage, setCurrentPage] = useState<number>(1);

@@ -5,11 +5,7 @@ import SearchBar from "../components/SearchBar";
 import ViewAllLink from "../components/ViewAllLink";
 import '../assets/css/home.css'
 
-interface HomeProps {
-  selectedColor: string | void,
-}
-
-export default function Home({selectedColor}:HomeProps) {
+export default function Home({selectedColor}:any) {
   
   return (
     <div>
