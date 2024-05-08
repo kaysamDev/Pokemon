@@ -1,7 +1,24 @@
 import { useEffect, useMemo, useState } from "react";
 
+type pokemon = {
+  id: number;
+  name: string;
+  types: { name: string }[];
+  sprites: {
+    other: {
+      dream_world: {
+        front_default: string;
+      };
+    };
+  };
+  height: number;
+  weight: number;
+  abilities: { ability: { name: string } }[];
+  stats: { stat: { name: string }; base_stat: number }[];
+};
+
 export default function useFetch(initialOffset = 0, initialLimit = 50) {
-  const [data, setData] = useState<{} | null>(null);
+  const [data, setData] = useState<pokemon | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [pokemonData, setPokemonData] = useState<any[]>([]);
@@ -45,7 +62,7 @@ export default function useFetch(initialOffset = 0, initialLimit = 50) {
     };
 
     fetchData();
-  }, []);
+  }, [initialOffset, initialLimit]);
 
   const cachedPokemonData = useMemo(()=> pokemonData, [pokemonData])
   return { data, isLoading, error, pokemonData: cachedPokemonData};

@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 interface ColorProps {
-  selectedColor: string
+  selectedColor: string | void
 }
 
 export default function SearchBar({selectedColor}:ColorProps) {
   const navigate = useNavigate();
-  const [currentColor, setCurrentColor] = useState(() => {
+  const [currentColor, setCurrentColor] = useState<string | void>(() => {
     return localStorage.getItem("selectedColor") || "#E85382";
   });
   

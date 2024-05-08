@@ -20,13 +20,10 @@ import {
 
 import { EyeIcon } from "lucide-react";
 
-import TrialImg from "../../img/images/trialImg.svg";
-
 import useFetch from "../useFetch";
 import PokemonModalBanner from "./PokemonModalBanner";
-// import Colorthief from "colorthief"
 
-interface Pokemon {
+type pokemon = {
   id: number;
   name: string;
   types: { name: string }[];
@@ -41,14 +38,22 @@ interface Pokemon {
   weight: number;
   abilities: { ability: { name: string } }[];
   stats: { stat: { name: string }; base_stat: number }[];
-}
+};
 
-export default function PokemonCardList({ selectedColor }: string) {
-  const { data, isLoading, error, pokemonData } = useFetch();
+type selectedColor = {
+  selectedColor: string | void;
+};
+
+// interface Props {
+//   pokemon: pokemon;
+//   selectedColor: selectedColor;
+// }
+
+export default function PokemonCardList({ selectedColor}: selectedColor) {
+  const { isLoading, error, pokemonData } = useFetch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedPokemon, setSelectedPokemon] = useState<number | null>(null);
-  const [pokemonColors, setPokemonColors] = useState<string[]>([]);
+  const [selectedPokemon, setSelectedPokemon] = useState<pokemon>();
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const btnRef = React.useRef<HTMLButtonElement>(null);
 
@@ -60,7 +65,7 @@ export default function PokemonCardList({ selectedColor }: string) {
     setCurrentPage(1); // Reset to first page when items per page changes
   };
 
-  const handleOpenDrawer = (id: any) => {
+  const handleOpenDrawer = (id: number) => {
     const selected = pokemonData.find((pokemon) => pokemon.id === id);
     if (selected) {
       setSelectedPokemon(selected);
@@ -95,13 +100,13 @@ export default function PokemonCardList({ selectedColor }: string) {
   return (
     <>
       <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-14">
-        {paginatedPokemonData.map((pokemon: Pokemon, index: any) => (
+        {paginatedPokemonData.map((pokemon: pokemon) => (
           <Box
             bg="white"
             borderRadius="20px"
             minH="268px"
             className="drop-shadow-md group"
-            key={index.id}
+            key={pokemon.id}
           >
             <Box
               bg="rgba(241, 241, 241, 1)"
@@ -119,35 +124,6 @@ export default function PokemonCardList({ selectedColor }: string) {
             </Box>
 
             <h4>{pokemon.name}</h4>
-
-            {/* <Box
-            display="flex"
-            alignItems="center"
-            gap="4px"
-            justifyContent="center"
-          >
-            {pokemon.types.map((type: any) => (
-              <Box
-                display="flex"
-                alignItems="center"
-                gap="4px"
-                paddingY="4px"
-                paddingX="12px"
-                bg="rgba(241, 241, 241, 1)"
-                borderRadius="40px"
-                minW="50px"
-                mt="12px"
-                key={type.name}
-              >
-                <Box>
-                  <p>🔥</p>
-                </Box>
-                <Box>
-                  <h5>{type.name}</h5>
-                </Box>
-              </Box>
-            ))}
-          </Box> */}
 
             {/* Drawer */}
             <Box mt="16px" mb="8px" className="group-hover:block hidden">
@@ -185,7 +161,6 @@ export default function PokemonCardList({ selectedColor }: string) {
                           <TabPanel overflowY="auto" h="100vh" padding="0">
                             <PokemonModalBanner
                               selectedPokemon={selectedPokemon}
-                              colors={pokemonColors}
                               onClose={onClose}
                             />
                             <Box>
@@ -212,7 +187,7 @@ export default function PokemonCardList({ selectedColor }: string) {
                                     <Box>
                                       <UnorderedList className="font-bold">
                                         {selectedPokemon.abilities.map(
-                                          (ability: any) => (
+                                          (ability) => (
                                             <ListItem
                                               key={ability.ability.name}
                                             >
@@ -234,7 +209,6 @@ export default function PokemonCardList({ selectedColor }: string) {
                           <TabPanel overflowY="auto" h="100vh" padding="0">
                             <PokemonModalBanner
                               selectedPokemon={selectedPokemon}
-                              colors={pokemonColors}
                               onClose={onClose}
                             />
                             <Box>
@@ -243,7 +217,7 @@ export default function PokemonCardList({ selectedColor }: string) {
                               {selectedPokemon && (
                                 <Box className="mt-4 bg-gradient-to-r from-white from-100% via-[#d2d2d2] via-[6%] to-white to-100%">
                                   <UnorderedList styleType="none" py="4px">
-                                    {selectedPokemon.stats.map((i: any) => (
+                                    {selectedPokemon.stats.map((i) => (
                                       <Box
                                         className="text-[18px] flex items-center justify-end gap-4"
                                         key={i.stat.name}
@@ -274,42 +248,13 @@ export default function PokemonCardList({ selectedColor }: string) {
                           <TabPanel overflowY="auto" h="100vh" padding="0">
                             <PokemonModalBanner
                               selectedPokemon={selectedPokemon}
-                              colors={pokemonColors}
                               onClose={onClose}
                             />
                             <Box>
                               <Box className="mt-4 h-[2px] bg-gradient-to-b from-white from-10% via-[#d2d2d2] via-[27%] to-white to-10%"></Box>
                               <h4 className="text-center">Similar</h4>
                               <Box className="mt-4 bg-gradient-to-r from-white from-100% via-[#d2d2d2] via-[6%] to-white to-100%">
-                                <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14">
-                                  {data.results.map((i: any) => (
-                                    <Box
-                                      bg="white"
-                                      borderRadius="20px"
-                                      minW="210px"
-                                      className="drop-shadow-md group"
-                                      key={i}
-                                    >
-                                      <Box
-                                        bg="rgba(241, 241, 241, 1)"
-                                        margin="8px"
-                                        borderRadius="15px"
-                                        height="100px"
-                                      >
-                                        <Image
-                                          src={TrialImg}
-                                          width="137px"
-                                          height="137px"
-                                          alt="trial image"
-                                          className="left-8 absolute -top-8"
-                                        />
-                                      </Box>
-                                      <h4 className="text-center capitalize mb-2">
-                                        charizard
-                                      </h4>
-                                    </Box>
-                                  ))}
-                                </Box>
+                                <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14"></Box>
                               </Box>
                             </Box>
                           </TabPanel>
@@ -350,33 +295,33 @@ export default function PokemonCardList({ selectedColor }: string) {
             Prev
           </Button>
           <>
-          {pageNumbers.map((number, index) => (
-            <>
-              {index < 5 && (
-                <Button
-                  onClick={() => setCurrentPage(number)}
-                  colorScheme={number === currentPage ? "pink" : "gray"}
-                  mr="10px"
-                >
-                  {number}
-                </Button>
-              )}
-              {index === 10 && pageNumbers.length > 10 && (
-                <Button isDisabled mr="10px">
-                  ...
-                </Button>
-              )}
-              {index > pageNumbers.length - 3 && (
-                <Button
-                  onClick={() => setCurrentPage(number)}
-                  colorScheme={number === currentPage ? "pink" : "gray"}
-                  mr="10px"
-                >
-                  {number}
-                </Button>
-              )}
-            </>
-          ))}
+            {pageNumbers.map((number, index) => (
+              <>
+                {index < 5 && (
+                  <Button
+                    onClick={() => setCurrentPage(number)}
+                    colorScheme={number === currentPage ? "pink" : "gray"}
+                    mr="10px"
+                  >
+                    {number}
+                  </Button>
+                )}
+                {index === 10 && pageNumbers.length > 10 && (
+                  <Button isDisabled mr="10px">
+                    ...
+                  </Button>
+                )}
+                {index > pageNumbers.length - 3 && (
+                  <Button
+                    onClick={() => setCurrentPage(number)}
+                    colorScheme={number === currentPage ? "pink" : "gray"}
+                    mr="10px"
+                  >
+                    {number}
+                  </Button>
+                )}
+              </>
+            ))}
           </>
           <Button
             disabled={currentPage === totalPages}

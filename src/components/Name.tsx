@@ -1,6 +1,6 @@
 interface NameProps {
   size: number
-  selectedColor: string
+  selectedColor: string | void
 }
 export default function Name({size, selectedColor}:NameProps) {
 

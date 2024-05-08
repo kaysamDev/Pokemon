@@ -6,7 +6,7 @@ import ViewAllLink from "../components/ViewAllLink";
 import '../assets/css/home.css'
 
 interface HomeProps {
-  selectedColor: string,
+  selectedColor: string | void,
 }
 
 export default function Home({selectedColor}:HomeProps) {

@@ -2,8 +2,17 @@ import { Box, Button } from "@chakra-ui/react";
 import { ArrowLeft } from "lucide-react";
 
 interface Props{
-  selectedPokemon: {}
-  onClose: any
+  selectedPokemon: {
+    name: string
+    sprites: {
+      other: {
+        dream_world: {
+          front_default: string
+        }
+      }
+    }
+  }
+  onClose: ()=>void
 }
 
 export default function PokemonModalBanner({onClose, selectedPokemon}:Props) {
@@ -31,24 +40,6 @@ export default function PokemonModalBanner({onClose, selectedPokemon}:Props) {
         mt="32px"
       >
         <h3>{selectedPokemon.name}</h3>
-        {/* <Box
-          display="flex"
-          alignItems="center"
-          gap="4px"
-          paddingY="4px"
-          paddingX="12px"
-          bg="rgba(241, 241, 241, 1)"
-          borderRadius="40px"
-          minW="50px"
-          mt="12px"
-        >
-          <Box>
-            <p>🔥</p>
-          </Box>
-          <Box>
-            <p>fire</p>
-          </Box>
-        </Box> */}
       </Box>
     </>
   );

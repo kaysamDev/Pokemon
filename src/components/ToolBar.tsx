@@ -18,9 +18,9 @@ import { Key } from "react";
 import Home from "../pages/Home";
 
 interface ToolBarProps {
-  selectedColor: string
-  handleColorChange: any
-  hexColors: any
+  selectedColor: string | void
+  handleColorChange: (color: string) => void
+  hexColors: string[]
 }
 
 export default function ToolBar({selectedColor, handleColorChange, hexColors}:ToolBarProps) {

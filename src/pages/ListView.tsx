@@ -4,7 +4,7 @@ import PokemonCardList from "../components/PokemonCardList";
 import { useState } from "react";
 
 export default function ListView() {
-  const [selectedColor, setSelectedColor] = useState<string>(() => {
+  const [selectedColor, setSelectedColor] = useState<string | void>(() => {
     return localStorage.getItem("selectedColor") || "#E85382";
   });
   
