@@ -18,34 +18,19 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import { EyeIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, EyeIcon } from "lucide-react";
 
 import useFetch from "../useFetch";
 import PokemonModalBanner from "./PokemonModalBanner";
-
-type pokemon = {
-  id: number;
-  name: string;
-  types: { name: string }[];
-  sprites: {
-    other: {
-      dream_world: {
-        front_default: string;
-      };
-    };
-  };
-  height: number;
-  weight: number;
-  abilities: { ability: { name: string } }[];
-  stats: { stat: { name: string }; base_stat: number }[];
-};
+import { pokemon } from "../..";
+import { ThemeColorProps } from "../..";
 
 // interface Props {
 //   pokemon: pokemon;
-//   selectedColor: selectedColor;
+//   // selectedColor: selectedColor;
 // }
 
-export default function PokemonCardList({ selectedColor}:any) {
+export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
   const { isLoading, error, pokemonData } = useFetch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -68,8 +53,6 @@ export default function PokemonCardList({ selectedColor}:any) {
       onOpen();
     }
   };
-
-  // console.log(selectedPokemon);
 
   // Calculate total number of pages
   const totalPages = Math.ceil(pokemonData.length / itemsPerPage);
@@ -288,7 +271,7 @@ export default function PokemonCardList({ selectedColor}:any) {
             onClick={() => setCurrentPage(currentPage - 1)}
             mr="10px"
           >
-            Prev
+            <ChevronLeft/>
           </Button>
           <>
             {pageNumbers.map((number, index) => (
@@ -296,7 +279,10 @@ export default function PokemonCardList({ selectedColor}:any) {
                 {index < 5 && (
                   <Button
                     onClick={() => setCurrentPage(number)}
-                    colorScheme={number === currentPage ? "pink" : "gray"}
+                    style={{
+                      backgroundColor:
+                        number === currentPage ? selectedColor : "gray",
+                    }}
                     mr="10px"
                   >
                     {number}
@@ -310,7 +296,10 @@ export default function PokemonCardList({ selectedColor}:any) {
                 {index > pageNumbers.length - 3 && (
                   <Button
                     onClick={() => setCurrentPage(number)}
-                    colorScheme={number === currentPage ? "pink" : "gray"}
+                    style={{
+                      backgroundColor:
+                        number === currentPage ? selectedColor : "gray",
+                    }}
                     mr="10px"
                   >
                     {number}
@@ -324,7 +313,7 @@ export default function PokemonCardList({ selectedColor}:any) {
             onClick={() => setCurrentPage(currentPage + 1)}
             ml="10px"
           >
-            Next
+            <ChevronRight/>
           </Button>
         </Box>
 

@@ -4,8 +4,12 @@ import Description from "../components/Description";
 import SearchBar from "../components/SearchBar";
 import ViewAllLink from "../components/ViewAllLink";
 import '../assets/css/home.css'
+import { ThemeColorProps } from "../..";
 
-export default function Home({selectedColor}:any) {
+export default function Home({selectedColor}:ThemeColorProps) {
+
+  // console.log(typeof selectedColor);
+  
   
   return (
     <div>

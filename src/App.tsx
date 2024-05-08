@@ -7,8 +7,8 @@ function App() {
   return (
     <ChakraProvider>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home selectedColor={""} />} />
+        <Route path="/home" element={<Home selectedColor={""} />} />
         <Route path="/list-view" element={<ListView />} />
       </Routes>
     </ChakraProvider>

@@ -2,6 +2,7 @@ import { Box } from "@chakra-ui/react";
 import ToolBar from "../components/ToolBar";
 import PokemonCardList from "../components/PokemonCardList";
 import { useState } from "react";
+// import { ThemeColorProps } from "../..";
 
 export default function ListView() {
   const [selectedColor, setSelectedColor] = useState<string | void>(() => {
@@ -29,7 +30,7 @@ export default function ListView() {
       {/* Main list rendering */}
       <Box mt={146}>
         <Box>
-          <PokemonCardList selectedColor={selectedColor} />
+          <PokemonCardList selectedColor={selectedColor}/>
         </Box>
       </Box>
     </>

@@ -1,29 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
+import { pokemon } from "..";
 
-type pokemon = {
-  id: number;
-  name: string;
-  types: { name: string }[];
-  sprites: {
-    other: {
-      dream_world: {
-        front_default: string;
-      };
-    };
-  };
-  height: number;
-  weight: number;
-  abilities: { ability: { name: string } }[];
-  stats: { stat: { name: string }; base_stat: number }[];
-};
+interface lessPokemonInfo {
+  results: pokemon[]
+}
 
-export default function useFetch(initialOffset = 0, initialLimit = 500) {
+
+
+export default function useFetch(initialOffset = 0, initialLimit = 10) {
   const [data, setData] = useState<pokemon | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [pokemonData, setPokemonData] = useState<any[]>([]);
+  const [pokemonData, setPokemonData] = useState<pokemon[]>([]);
   
-
   useEffect(() => {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${initialOffset}&limit=${initialLimit}`;
 
@@ -38,17 +27,17 @@ export default function useFetch(initialOffset = 0, initialLimit = 500) {
         setData(data);
         setError(null);
         fetchPokemonDetails(data); // Call fetchPokemonDetails after setting data
-      } catch (error: any) {
+      } catch (error) {
         setError("Failed to fetch data");
       } finally {
         setIsLoading(false);
       }
     };
 
-    const fetchPokemonDetails = async (data: any) => {
+    const fetchPokemonDetails = async (data: lessPokemonInfo) => {
       if (data.results) {
         const newData = await Promise.all(
-          data.results.map(async (pokemon: any) => {
+          data.results.map(async (pokemon: pokemon) => {
             const response = await fetch(pokemon.url);
             if (!response.ok) {
               throw new Error("Failed to fetch Pokémon details");
@@ -58,6 +47,7 @@ export default function useFetch(initialOffset = 0, initialLimit = 500) {
           })
         );
         setPokemonData(newData);
+        
       }
     };
 
