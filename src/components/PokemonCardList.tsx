@@ -280,8 +280,8 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                   <Button
                     onClick={() => setCurrentPage(number)}
                     style={{
-                      backgroundColor:
-                        number === currentPage ? selectedColor : "gray",
+                      backgroundColor: selectedColor ?
+                        (number === currentPage ? selectedColor : "gray") : undefined
                     }}
                     mr="10px"
                   >
@@ -297,8 +297,8 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                   <Button
                     onClick={() => setCurrentPage(number)}
                     style={{
-                      backgroundColor:
-                        number === currentPage ? selectedColor : "gray",
+                      backgroundColor: selectedColor ?
+                        (number === currentPage ? selectedColor : "gray") : undefined
                     }}
                     mr="10px"
                   >
