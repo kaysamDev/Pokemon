@@ -12,9 +12,11 @@ export default function SearchBar({selectedColor}:ColorProps) {
   const [currentColor, setCurrentColor] = useState<string | void>(() => {
     return localStorage.getItem("selectedColor") || "#E85382";
   });
+
+  console.log(currentColor)
   
   const handleSearchClick = () => {
-    navigate('/list-view')
+    navigate('/#/list-view')
   }
 
   useEffect(()=>{
