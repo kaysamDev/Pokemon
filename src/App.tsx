@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ListView from "./pages/ListView";
 import { ChakraProvider } from "@chakra-ui/react";
