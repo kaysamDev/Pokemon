@@ -7,7 +7,7 @@ interface LogoProps {
 export default function Logo({width}:LogoProps) {
   
   return (
-    <div className='max-sm:w-[50px]'>
+    <div>
         <img src={MainImg} alt="Pokeman landing page image" width={width}/>
     </div>
   )
