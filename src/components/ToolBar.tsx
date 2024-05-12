@@ -30,8 +30,8 @@ export default function ToolBar({selectedColor, handleColorChange, hexColors}:To
     <>
       <nav className="bg-white/50 drop-shadow-md">
         <div className="flex items-center justify-between container">
-          <div className="relative top-4 left-8">
-            <Link to="/home" className="flex items-start gap-4">
+          <div className="md:relative top-4 left-8 m-3 md:m-0">
+            <Link to="/home" className="flex items-start gap-2 md:gap-4">
               <Logo width={129}/>
               <Name size={24} selectedColor={selectedColor}/>
             </Link>
@@ -41,7 +41,7 @@ export default function ToolBar({selectedColor, handleColorChange, hexColors}:To
             <InputGroup>
               <Input
                 placeholder="Enter pokemon name"
-                maxWidth="480px"
+                width="440px"
                 paddingX="12px"
                 borderRadius="60px"
                 className="

@@ -20,7 +20,7 @@ import {
 
 import { ChevronLeft, ChevronRight, EyeIcon } from "lucide-react";
 
-import useFetch from "../useFetch";
+import useFetch from "../hooks/useFetch";
 import PokemonModalBanner from "./PokemonModalBanner";
 import { pokemon } from "../..";
 import { ThemeColorProps } from "../..";
@@ -111,6 +111,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                 colorScheme="pink"
                 onClick={() => handleOpenDrawer(pokemon.id)}
                 rightIcon={<EyeIcon />}
+                iconSpacing={24}
                 className={`text-white w-[90%] py-2 rounded-2xl
                     `}
                 style={{ backgroundColor: `${selectedColor}` }}
@@ -281,7 +282,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                     onClick={() => setCurrentPage(number)}
                     style={{
                       backgroundColor: selectedColor ?
-                        (number === currentPage ? selectedColor : "gray") : undefined
+                        (number === currentPage ? selectedColor : "#E9E9E9") : undefined
                     }}
                     mr="10px"
                   >
@@ -298,7 +299,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                     onClick={() => setCurrentPage(number)}
                     style={{
                       backgroundColor: selectedColor ?
-                        (number === currentPage ? selectedColor : "gray") : undefined
+                        (number === currentPage ? selectedColor : "#E9E9E9") : undefined
                     }}
                     mr="10px"
                   >

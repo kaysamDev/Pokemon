@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { pokemon } from "..";
+import { pokemon } from "../..";
 
 interface lessPokemonInfo {
   results: pokemon[]
@@ -7,7 +7,7 @@ interface lessPokemonInfo {
 
 
 
-export default function useFetch(initialOffset = 0, initialLimit = 10) {
+export default function useFetch(initialOffset = 0, initialLimit = 500) {
   const [data, setData] = useState<pokemon | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

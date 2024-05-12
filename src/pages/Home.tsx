@@ -7,8 +7,6 @@ import '../assets/css/home.css'
 import { ThemeColorProps } from "../..";
 
 export default function Home({selectedColor}:ThemeColorProps) {
-
-  // console.log(typeof selectedColor);
   
   
   return (

@@ -1,12 +1,23 @@
+import { useEffect, useState } from "react";
+
 interface NameProps {
-  size: number
-  selectedColor: string | void
+  size: number;
+  selectedColor: string | void;
 }
-export default function Name({size, selectedColor}:NameProps) {
+export default function Name({ size,selectedColor }: NameProps) {
+  const [currentColor, setCurrentColor] = useState<string | void>(() => {
+    return localStorage.getItem("selectedColor") || "#E85382";
+  });
+
+  useEffect(() => {
+    setCurrentColor(currentColor);
+  }, [selectedColor,currentColor]);
 
   return (
     <>
-      <h1 className='py-4' style={{fontSize: `${size}px`}}>Poké<span style={{color: `${selectedColor}`}}>book</span></h1>
+      <h1 className="py-4 text-sm md:text-2xl" style={{fontSize: `${size}`}}>
+        Poké<span style={{ color: `${currentColor}` }}>book</span>
+      </h1>
     </>
-  )
+  );
 }
