@@ -15,7 +15,7 @@ export default function Name({ size,selectedColor }: NameProps) {
 
   return (
     <>
-      <h1 className="py-4 text-sm md:text-2xl" style={{fontSize: `${size}`}}>
+      <h1 className="py-4" style={{fontSize: `${size}`}}>
         Poké<span style={{ color: `${currentColor}` }}>book</span>
       </h1>
     </>
