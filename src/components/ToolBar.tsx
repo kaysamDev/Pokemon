@@ -41,7 +41,7 @@ export default function ToolBar({selectedColor, handleColorChange, hexColors}:To
             <InputGroup>
               <Input
                 placeholder="Enter pokemon name"
-                width="440px"
+                maxWidth="440px"
                 paddingX="12px"
                 borderRadius="60px"
                 className="
