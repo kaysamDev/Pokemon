@@ -10,8 +10,8 @@ export default function Name({ size,selectedColor }: NameProps) {
   });
 
   useEffect(() => {
-    setCurrentColor(currentColor);
-  }, [selectedColor,currentColor]);
+    setCurrentColor(selectedColor);
+  }, [selectedColor, currentColor]);
 
   return (
     <>

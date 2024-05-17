@@ -1,6 +1,7 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Image } from "@chakra-ui/react";
 import { ArrowLeft } from "lucide-react";
-
+import { useColor } from 'color-thief-react'
+import { lighten, darken } from "polished";
 interface Props{
   selectedPokemon: {
     name: string
@@ -16,21 +17,31 @@ interface Props{
 }
 
 export default function PokemonModalBanner({onClose, selectedPokemon}:Props) {
+  const { data: dominantColor, loading } = useColor(selectedPokemon.sprites.other.dream_world.front_default, 'hex', {
+    crossOrigin: 'anonymous'
+  });
+  
+  const topColor = dominantColor ? lighten(0.2, dominantColor): "rgba(241, 241, 241, 1)";
+  const bottomColor = dominantColor ? darken(0.2, dominantColor): "rgba(200, 200, 200, 1)"
   
   return (
     <>
-      <Box bg="blue" borderRadius="15px" height="200px" position="relative">
+      <Box borderRadius="15px" height="200px" position="relative"
+      bgGradient={loading ? "linear(to-b, rgba(241, 241, 241, 1), rgba(200, 200, 200, 1))" : `linear(to-b, ${topColor}, ${bottomColor})`}
+      >
         <Button size="sm" margin="16px" onClick={onClose} h="42px">
           <ArrowLeft />
         </Button>
-        <img
-          src={selectedPokemon.sprites.other.dream_world.front_default}
-          alt="trial image"
-          width={200}
-          className="absolute left-0 right-0 mx-auto -bottom-10"
-        />
+      <Image
+        src={selectedPokemon.sprites.other.dream_world.front_default}
+        alt={selectedPokemon.name}
+        className="absolute left-0 right-0 mx-auto -bottom-10"
+        width="200px"
+        height="200px"
+      />
       </Box>
 
+      
       <Box
         display="flex"
         flexDir="column"
@@ -41,6 +52,7 @@ export default function PokemonModalBanner({onClose, selectedPokemon}:Props) {
       >
         <h3>{selectedPokemon.name}</h3>
       </Box>
+
     </>
   );
 }

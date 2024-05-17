@@ -7,7 +7,7 @@ interface lessPokemonInfo {
 
 
 
-export default function useFetch(initialOffset = 0, initialLimit = 500) {
+export default function useFetch(initialOffset = 0, initialLimit = 20) {
   const [data, setData] = useState<pokemon | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

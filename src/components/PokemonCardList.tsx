@@ -25,10 +25,6 @@ import PokemonModalBanner from "./PokemonModalBanner";
 import { pokemon } from "../..";
 import { ThemeColorProps } from "../..";
 
-// interface Props {
-//   pokemon: pokemon;
-//   // selectedColor: selectedColor;
-// }
 
 export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
   const { isLoading, error, pokemonData } = useFetch();
@@ -46,13 +42,14 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
     setCurrentPage(1); // Reset to first page when items per page changes
   };
 
-  const handleOpenDrawer = (id: number) => {
+  const handleOpenDrawer = async (id: number) => {
     const selected = pokemonData.find((pokemon) => pokemon.id === id);
     if (selected) {
       setSelectedPokemon(selected);
       onOpen();
     }
   };
+
 
   // Calculate total number of pages
   const totalPages = Math.ceil(pokemonData.length / itemsPerPage);
@@ -75,6 +72,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
 
   return (
     <>
@@ -242,7 +240,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                         </TabPanels>
                       )}
 
-                      <TabList className="absolute left-28 bottom-0">
+                      <TabList className="absolute left-[25%] right-[25%] bottom-0">
                         <Box
                           backgroundColor="#E9E9E9"
                           borderRadius="24px"
@@ -279,6 +277,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
               <>
                 {index < 5 && (
                   <Button
+                  
                     onClick={() => setCurrentPage(number)}
                     style={{
                       backgroundColor: selectedColor ?
