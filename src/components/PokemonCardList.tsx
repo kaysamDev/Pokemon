@@ -25,12 +25,12 @@ import PokemonModalBanner from "./PokemonModalBanner";
 import { pokemon } from "../..";
 import { ThemeColorProps } from "../..";
 
-
 export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
   const { isLoading, error, pokemonData } = useFetch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedPokemon, setSelectedPokemon] = useState<pokemon>();
+  const [similarPokemon, setSimilarPokemon] = useState<pokemon[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
   const btnRef = React.useRef<HTMLButtonElement>(null);
 
@@ -46,10 +46,18 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
     const selected = pokemonData.find((pokemon) => pokemon.id === id);
     if (selected) {
       setSelectedPokemon(selected);
+
+      const slts = selected.types.map((i) => i.type.name);
+
+      const checkSimilarPokemon = pokemonData.filter((i) =>
+        i.types.some((t) => slts.includes(t.type.name))
+      );
+
+      setSimilarPokemon(checkSimilarPokemon);
+
       onOpen();
     }
   };
-
 
   // Calculate total number of pages
   const totalPages = Math.ceil(pokemonData.length / itemsPerPage);
@@ -73,7 +81,6 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
     return <div>Error: {error}</div>;
   }
 
-
   return (
     <>
       <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-14">
@@ -93,7 +100,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
             >
               <Image
                 src={pokemon.sprites.other.dream_world.front_default}
-                alt="trial image"
+                alt={pokemon.name + "image"}
                 className="absolute left-0 right-0 mx-auto -top-4"
                 width="170px"
                 height="170px"
@@ -123,7 +130,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                 placement="right"
                 onClose={onClose}
                 finalFocusRef={btnRef}
-                size="md"
+                size="lg"
               >
                 <DrawerOverlay />
                 <DrawerContent>
@@ -136,7 +143,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                     >
                       {selectedPokemon && (
                         <TabPanels>
-                          <TabPanel overflowY="auto" h="100vh" padding="0">
+                          <TabPanel overflowY="hidden" padding="0">
                             <PokemonModalBanner
                               selectedPokemon={selectedPokemon}
                               onClose={onClose}
@@ -145,23 +152,23 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                               <Box className="mt-4 h-[2px] bg-gradient-to-b from-white from-10% via-[#d2d2d2] via-[27%] to-white to-10%"></Box>
                               <h4 className="text-center">About</h4>
                               <Box className="mt-4 bg-gradient-to-r from-white from-100% via-[#d2d2d2] via-[6%] to-white to-100%">
-                                <UnorderedList styleType="none" py="4px">
+                                <UnorderedList styleType="none" py="4px" display="flex" flexDir="column" alignContent="center" gap="8px">
                                   <Box className="text-[20px] flex items-center justify-center gap-4">
-                                    <ListItem>Height</ListItem>
+                                    <ListItem className="">Height</ListItem>
                                     <ListItem className="font-bold">
                                       {selectedPokemon.height}m
                                     </ListItem>
                                   </Box>
 
                                   <Box className="text-[20px] flex items-center justify-center gap-4">
-                                    <ListItem>Weight</ListItem>
+                                    <ListItem className="">Weight</ListItem>
                                     <ListItem className="font-bold">
                                       {selectedPokemon.weight}kg
                                     </ListItem>
                                   </Box>
 
                                   <Box className="text-[20px] flex items-center justify-center gap-4 ml-[4.5rem]">
-                                    <ListItem>Abilities</ListItem>
+                                    <ListItem className="">Abilities</ListItem>
                                     <Box>
                                       <UnorderedList className="font-bold">
                                         {selectedPokemon.abilities.map(
@@ -173,8 +180,6 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                             </ListItem>
                                           )
                                         )}
-                                        {/* <ListItem>overflow</ListItem>,
-                                    <ListItem>chlorophyll</ListItem> */}
                                       </UnorderedList>
                                     </Box>
                                   </Box>
@@ -197,22 +202,24 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                   <UnorderedList styleType="none" py="4px">
                                     {selectedPokemon.stats.map((i) => (
                                       <Box
-                                        className="text-[18px] flex items-center justify-end gap-4"
+                                        className="text-[18px] flex items-center justify-end gap-8"
                                         key={i.stat.name}
                                       >
-                                        <ListItem className="capitalize">
+                                        <ListItem className="capitalize w-[40%] text-start">
                                           {i.stat.name}
                                         </ListItem>
-                                        <ListItem className="font-bold">
-                                          <progress
-                                            value={i.base_stat}
-                                            max={200}
-                                            className="h-2 progress-bar"
-                                          />
-                                        </ListItem>
-                                        <ListItem className="font-bold text-base">
-                                          {i.base_stat}
-                                        </ListItem>
+                                        <Box className="w-[60%] flex items-center gap-4">
+                                          <ListItem className="font-bold">
+                                            <progress
+                                              value={i.base_stat}
+                                              max={200}
+                                              className="h-2 progress-bar"
+                                            />
+                                          </ListItem>
+                                          <ListItem className="font-bold text-base">
+                                            {i.base_stat}
+                                          </ListItem>
+                                        </Box>
                                       </Box>
                                     ))}
                                   </UnorderedList>
@@ -234,6 +241,36 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                               <Box className="mt-4 bg-gradient-to-r from-white from-100% via-[#d2d2d2] via-[6%] to-white to-100%">
                                 <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14"></Box>
                               </Box>
+                            </Box>
+                            <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
+                              
+                              {similarPokemon.map((s) => (
+                                <Box
+                                  bg="white"
+                                  borderRadius="20px"
+                                  minH="200px"
+                                  className="drop-shadow-md group"
+                                  key={s.id}
+                                >
+                                  <Box
+                                    bg="rgba(241, 241, 241, 1)"
+                                    margin={2}
+                                    borderRadius="15px"
+                                    height="148px"
+                                  >
+                                    <Image
+                                      src={
+                                        s.sprites.other.dream_world.front_default
+                                      }
+                                      alt={s.name + " image"}
+                                      className="absolute left-0 right-0 mx-auto -top-4"
+                                      width="150px"
+                                      height="170px"
+                                    />
+                                  </Box>
+                                    <h4 className="text-center">{s.name}</h4>
+                                </Box>
+                              ))}
                             </Box>
                           </TabPanel>
                           {/* Third Tab */}
@@ -270,18 +307,20 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
             onClick={() => setCurrentPage(currentPage - 1)}
             mr="10px"
           >
-            <ChevronLeft/>
+            <ChevronLeft />
           </Button>
           <>
             {pageNumbers.map((number, index) => (
               <>
                 {index < 5 && (
                   <Button
-                  
                     onClick={() => setCurrentPage(number)}
                     style={{
-                      backgroundColor: selectedColor ?
-                        (number === currentPage ? selectedColor : "#E9E9E9") : undefined
+                      backgroundColor: selectedColor
+                        ? number === currentPage
+                          ? selectedColor
+                          : "#E9E9E9"
+                        : undefined,
                     }}
                     mr="10px"
                   >
@@ -297,8 +336,11 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                   <Button
                     onClick={() => setCurrentPage(number)}
                     style={{
-                      backgroundColor: selectedColor ?
-                        (number === currentPage ? selectedColor : "#E9E9E9") : undefined
+                      backgroundColor: selectedColor
+                        ? number === currentPage
+                          ? selectedColor
+                          : "#E9E9E9"
+                        : undefined,
                     }}
                     mr="10px"
                   >
@@ -313,7 +355,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
             onClick={() => setCurrentPage(currentPage + 1)}
             ml="10px"
           >
-            <ChevronRight/>
+            <ChevronRight />
           </Button>
         </Box>
 
