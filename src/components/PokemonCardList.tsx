@@ -97,6 +97,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
               margin={2}
               borderRadius="15px"
               height="148px"
+              position="relative"
             >
               <Image
                 src={pokemon.sprites.other.dream_world.front_default}
@@ -138,12 +139,13 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                     <Tabs
                       variant="soft-rounded"
                       colorScheme="twitter"
-                      size="sm"
+                      size="md"
                       height="100%"
+                      align="center"
                     >
                       {selectedPokemon && (
                         <TabPanels>
-                          <TabPanel overflowY="hidden" padding="0">
+                          <TabPanel padding="0">
                             <PokemonModalBanner
                               selectedPokemon={selectedPokemon}
                               onClose={onClose}
@@ -154,23 +156,23 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                               <Box className="mt-4 bg-gradient-to-r from-white from-100% via-[#d2d2d2] via-[6%] to-white to-100%">
                                 <UnorderedList styleType="none" py="4px" display="flex" flexDir="column" alignContent="center" gap="8px">
                                   <Box className="text-[20px] flex items-center justify-center gap-4">
-                                    <ListItem className="">Height</ListItem>
-                                    <ListItem className="font-bold">
+                                    <ListItem className="max-sm:text-lg">Height</ListItem>
+                                    <ListItem className="font-bold max-sm:text-lg">
                                       {selectedPokemon.height}m
                                     </ListItem>
                                   </Box>
 
                                   <Box className="text-[20px] flex items-center justify-center gap-4">
-                                    <ListItem className="">Weight</ListItem>
-                                    <ListItem className="font-bold">
+                                    <ListItem className="max-sm:text-lg">Weight</ListItem>
+                                    <ListItem className="font-bold max-sm:text-lg">
                                       {selectedPokemon.weight}kg
                                     </ListItem>
                                   </Box>
 
                                   <Box className="text-[20px] flex items-center justify-center gap-4 ml-[4.5rem]">
-                                    <ListItem className="">Abilities</ListItem>
+                                    <ListItem className="max-sm:text-lg">Abilities</ListItem>
                                     <Box>
-                                      <UnorderedList className="font-bold">
+                                      <UnorderedList className="font-bold max-sm:text-lg">
                                         {selectedPokemon.abilities.map(
                                           (ability) => (
                                             <ListItem
@@ -205,18 +207,18 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                         className="text-[18px] flex items-center justify-end gap-8"
                                         key={i.stat.name}
                                       >
-                                        <ListItem className="capitalize w-[40%] text-start">
+                                        <ListItem className="capitalize w-[30%] text-start max-sm:text-sm">
                                           {i.stat.name}
                                         </ListItem>
-                                        <Box className="w-[60%] flex items-center gap-4">
-                                          <ListItem className="font-bold">
+                                        <Box className="w-[70%] flex items-center gap-4">
+                                          <ListItem className="font-bold w-[60%]">
                                             <progress
                                               value={i.base_stat}
                                               max={200}
                                               className="h-2 progress-bar"
                                             />
                                           </ListItem>
-                                          <ListItem className="font-bold text-base">
+                                          <ListItem className="font-bold text-xs md:text-base w-[10%]">
                                             {i.base_stat}
                                           </ListItem>
                                         </Box>
@@ -257,6 +259,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                     margin={2}
                                     borderRadius="15px"
                                     height="148px"
+                                    position="relative"
                                   >
                                     <Image
                                       src={

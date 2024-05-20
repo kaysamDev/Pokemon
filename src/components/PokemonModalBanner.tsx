@@ -29,7 +29,7 @@ export default function PokemonModalBanner({onClose, selectedPokemon}:Props) {
       <Box borderRadius="15px" height="200px" position="relative"
       bgGradient={loading ? "linear(to-b, rgba(241, 241, 241, 1), rgba(200, 200, 200, 1))" : `linear(to-b, ${topColor}, ${bottomColor})`}
       >
-        <Button size="sm" margin="16px" onClick={onClose} h="42px">
+        <Button size="sm" margin="16px" onClick={onClose} h="42px" position="absolute" left="0">
           <ArrowLeft />
         </Button>
       <Image
