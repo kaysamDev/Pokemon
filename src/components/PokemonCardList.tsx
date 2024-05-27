@@ -141,7 +141,6 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                       colorScheme="twitter"
                       size="md"
                       height="100%"
-                      align="center"
                     >
                       {selectedPokemon && (
                         <TabPanels>
@@ -232,7 +231,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                           {/* Second Tab */}
 
                           {/* Third Tab */}
-                          <TabPanel overflowY="auto" h="100vh" padding="0">
+                          <TabPanel>
                             <PokemonModalBanner
                               selectedPokemon={selectedPokemon}
                               onClose={onClose}
@@ -280,7 +279,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                         </TabPanels>
                       )}
 
-                      <TabList className="absolute left-[25%] right-[25%] bottom-0">
+                      <TabList className="absolute left-10 md:left-[25%] right-0 md:right-[25%] bottom-2 flex items-center">
                         <Box
                           backgroundColor="#E9E9E9"
                           borderRadius="24px"
