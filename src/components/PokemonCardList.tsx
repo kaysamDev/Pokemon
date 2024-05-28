@@ -142,6 +142,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                       colorScheme="twitter"
                       size="md"
                       height="100%"
+                      overflow="hidden"
                     >
                       {selectedPokemon && (
                         <TabPanels>
