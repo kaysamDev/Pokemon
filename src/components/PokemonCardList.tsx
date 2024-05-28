@@ -132,6 +132,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                 onClose={onClose}
                 finalFocusRef={btnRef}
                 size="lg"
+                blockScrollOnMount={false}
               >
                 <DrawerOverlay />
                 <DrawerContent>
@@ -231,7 +232,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                           {/* Second Tab */}
 
                           {/* Third Tab */}
-                          <TabPanel>
+                          <TabPanel overflowY="hidden" h="100vh" padding="0">
                             <PokemonModalBanner
                               selectedPokemon={selectedPokemon}
                               onClose={onClose}
@@ -243,7 +244,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                 <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14"></Box>
                               </Box>
                             </Box>
-                            <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6">
+                            <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6 max-h-72 overflow-y-auto hiddenScroll py-6">
                               
                               {similarPokemon.map((s) => (
                                 <Box
@@ -279,7 +280,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                         </TabPanels>
                       )}
 
-                      <TabList className="absolute left-10 md:left-[25%] right-0 md:right-[25%] bottom-2 flex items-center">
+                      <TabList className="absolute left-10 md:left-[30%] right-0 md:right-[25%] bottom-2 flex items-center">
                         <Box
                           backgroundColor="#E9E9E9"
                           borderRadius="24px"

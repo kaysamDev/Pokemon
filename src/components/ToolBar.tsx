@@ -14,7 +14,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Search } from "lucide-react";
-import { Key } from "react";
+import { Key, useEffect } from "react";
 import Home from "../pages/Home";
 
 interface ToolBarProps {
@@ -26,6 +26,13 @@ interface ToolBarProps {
 export default function ToolBar({selectedColor, handleColorChange, hexColors}:ToolBarProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   
+
+  useEffect(() => {
+    if (selectedColor) {
+      document.documentElement.style.setProperty("--selected-color", selectedColor);
+    }
+  }, [selectedColor]);
+
   return (
     <>
       <nav className="bg-white/50 drop-shadow-md">
