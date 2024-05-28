@@ -2,31 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+:root {
+  --selected-color: #E85382;
+}
+
+body {
   @apply text-[#000000] bg-noiseImg
 }
 
-h1{
+h1 {
   @apply text-5xl font-semibold
 }
-h2{
+
+h2 {
   @apply text-4xl font-semibold
 }
-h3{
+
+h3 {
   @apply text-3xl font-medium
 }
-h4{
+
+h4 {
   @apply text-2xl font-medium
 }
 
 /* List View css */
 progress {
-  --progress-bar-color: #E85382;
+  --progress-bar-color: var(--selected-color);
 }
-progress::-moz-progress-bar { background: var(--progress-bar-color) }
-progress::-webkit-progress-value { background: var(--progress-bar-color); }
-progress { color: var(--progress-bar-color); }
+
+progress::-moz-progress-bar {
+  background: var(--progress-bar-color)
+}
+
+progress::-webkit-progress-value {
+  background: var(--progress-bar-color);
+}
+
+progress {
+  color: var(--progress-bar-color);
+}
 
 ::-webkit-progress-bar {
   background-color: #cbcbcb;
+}
+
+
+/* scroll bar */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--selected-color);
+}
+
+.hiddenScroll::-webkit-scrollbar {
+  width: 0;
 }
