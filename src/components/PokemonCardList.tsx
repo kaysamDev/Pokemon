@@ -16,6 +16,9 @@ import {
   Tab,
   TabPanel,
   Select,
+  Spinner,
+  Alert,
+  AlertIcon
 } from "@chakra-ui/react";
 
 import { ChevronLeft, ChevronRight, EyeIcon } from "lucide-react";
@@ -74,11 +77,22 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="pink.500"
+        size="xl"
+      />
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <Alert status='error'>
+    <AlertIcon />
+    {error}
+  </Alert>;
   }
 
   return (
@@ -111,7 +125,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
             <h4>{pokemon.name}</h4>
 
             {/* Drawer */}
-            <Box mt="16px" mb="8px" className="group-hover:block hidden">
+            <Box mt="16px" mb="8px" className="group-hover:block block lg:hidden">
               <Button
                 ref={btnRef}
                 colorScheme="pink"
@@ -119,7 +133,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                 rightIcon={<EyeIcon />}
                 iconSpacing={24}
                 className={`text-white w-[90%] py-2 rounded-2xl
-                    `}
+                      `}
                 style={{ backgroundColor: `${selectedColor}` }}
               >
                 View Pokemon
@@ -155,23 +169,36 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                               <Box className="mt-4 h-[2px] bg-gradient-to-b from-white from-10% via-[#d2d2d2] via-[27%] to-white to-10%"></Box>
                               <h4 className="text-center">About</h4>
                               <Box className="mt-4 bg-gradient-to-r from-white from-100% via-[#d2d2d2] via-[6%] to-white to-100%">
-                                <UnorderedList styleType="none" py="4px" display="flex" flexDir="column" alignContent="center" gap="8px">
+                                <UnorderedList
+                                  styleType="none"
+                                  py="4px"
+                                  display="flex"
+                                  flexDir="column"
+                                  alignContent="center"
+                                  gap="8px"
+                                >
                                   <Box className="text-[20px] flex items-center justify-center gap-4">
-                                    <ListItem className="max-sm:text-lg">Height</ListItem>
+                                    <ListItem className="max-sm:text-lg">
+                                      Height
+                                    </ListItem>
                                     <ListItem className="font-bold max-sm:text-lg">
                                       {selectedPokemon.height}m
                                     </ListItem>
                                   </Box>
 
                                   <Box className="text-[20px] flex items-center justify-center gap-4">
-                                    <ListItem className="max-sm:text-lg">Weight</ListItem>
+                                    <ListItem className="max-sm:text-lg">
+                                      Weight
+                                    </ListItem>
                                     <ListItem className="font-bold max-sm:text-lg">
                                       {selectedPokemon.weight}kg
                                     </ListItem>
                                   </Box>
 
                                   <Box className="text-[20px] flex items-center justify-center gap-4 ml-[4.5rem]">
-                                    <ListItem className="max-sm:text-lg">Abilities</ListItem>
+                                    <ListItem className="max-sm:text-lg">
+                                      Abilities
+                                    </ListItem>
                                     <Box>
                                       <UnorderedList className="font-bold max-sm:text-lg">
                                         {selectedPokemon.abilities.map(
@@ -245,8 +272,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                 <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-14"></Box>
                               </Box>
                             </Box>
-                            <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6 max-h-72 overflow-y-auto hiddenScroll py-6">
-                              
+                            <Box className="grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-6 max-h-screen overflow-y-auto hiddenScroll py-6">
                               {similarPokemon.map((s) => (
                                 <Box
                                   bg="white"
@@ -264,7 +290,8 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                   >
                                     <Image
                                       src={
-                                        s.sprites.other.dream_world.front_default
+                                        s.sprites.other.dream_world
+                                          .front_default
                                       }
                                       alt={s.name + " image"}
                                       className="absolute left-0 right-0 mx-auto -top-4"
@@ -272,7 +299,7 @@ export default function PokemonCardList({ selectedColor }: ThemeColorProps) {
                                       height="170px"
                                     />
                                   </Box>
-                                    <h4 className="text-center">{s.name}</h4>
+                                  <h4 className="text-center">{s.name}</h4>
                                 </Box>
                               ))}
                             </Box>
