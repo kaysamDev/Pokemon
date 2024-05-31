@@ -39,7 +39,7 @@ export default function ToolBar({selectedColor, handleColorChange, hexColors}:To
         <div className="flex items-center justify-between container">
           <div className="md:relative top-4 left-8 m-3 md:m-0">
             <Link to="/home" className="flex items-start gap-2 md:gap-4 max-sm:w-12">
-              <Logo width={129}/>
+              <Logo width={129} height={40}/>
               <div className="max-sm:hidden">
                 <Name size={24} selectedColor={selectedColor}/>
               </div>

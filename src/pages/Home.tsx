@@ -12,7 +12,7 @@ export default function Home({selectedColor}:ThemeColorProps) {
   return (
     <div>
       <div className="home-container">
-        <Logo width={382}/>
+        <Logo width={382} height={200}/>
         <div className="max-w-[370px] w-full">
           <Name size={48} selectedColor={selectedColor}/>
           <Description />
